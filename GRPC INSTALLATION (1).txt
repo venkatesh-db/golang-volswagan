@@ -1,0 +1,109 @@
+
+https://gist.github.com/jjeffery/6e3a4d18ffbe1fc715be403f6391c5f4
+
+
+1. go 1.19   ==> Lang Library   
+
+2. VSC ==> IDE
+
+3. git   => software
+
+4. Open cmd prompt 
+
+   go get -u google.golang.org/grpc   ==>  GRPC 
+
+5. Open cmd prompt  
+
+    go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+
+6. Download and unzip (for Windows) :
+
+   https://github.com/protocolbuffers/protobuf/releases   protoc-21.12-win64.zip          : new 
+
+   https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protoc-3.17.3-win64.zip  :old 
+
+   In download u will get a zip folder
+
+7. Gotopath in your PC  => C:\Program Files\protoc
+   create protoc folder in cprogram files
+   extract all files in this folder             ===> protoc compiler
+
+8. Go To EnvironmentalVariable variable value in system path add it 
+   Add C:\Program Files\protoc\bin
+
+8.1 Open cmd prompt 
+    goto command prompt  : protoc --version
+
+9.  C:\Users\jvt\go\src\github.com\golang\protobuf\  
+
+    C:\Users\jvt\go\pkg\mod\pkg\mod\github.com\golang\protobuf@v1.5.2
+
+    Create new folder hello\hellopb
+                             |Create a new .proto file with a code in this path  greet.proto
+
+9.1  greet.proto  in the path  hello\hellopb
+
+syntax = 'proto3';
+option go_package="hello/hellopb";
+
+message HelloRequest {
+    string name = 1;
+}
+ 
+message HelloResponse {
+    string greet = 1;
+}
+ 
+service Welcome {
+rpc Hello(HelloRequest) returns (HelloResponse);
+}
+
+ERRROR:
+
+go: could not create module cache: mkdir C:\Program Files\Go: Access is denied.
+
+Solution :
+
+set GOPATH=C:\Go\bin
+
+10. gotopath : C:\Users\jvt\go\src\github.com\golang\protobuf\hello\hellopb                 : old 
+
+               C:\Users\jvt\go\pkg\mod\pkg\mod\github.com\golang\protobuf@v1.5.2            : new 
+        
+                 Path :   C:\Users\jvt\go\src\github.com\golang\protobuf\hello\hellopb
+
+                            
+
+                                protoc --go_out=. --go-grpc_out=. greet.proto              : Superb working 
+
+                 Command:   protoc hello/hellopb/greet.proto --go_out=plugins=grpc:.        : working
+
+                            protoc --proto_path=hellopb hellopb/*.proto --go_out=plugins=grpc:hellopb
+
+                             protoc --go_out=paths=hello/hellopb:. path/to/greet.proto
+
+
+11. new pb.go file is created 
+
+12.1  USe the existing GRPC server files to demonstrate the example of server code & client code 
+      F:\CoderRange\GOLang 3\GRPC & GIN MICROSERVICES\5.) GRPC
+
+12.  now the geneerated file  { protofiles place twofiles pb.go , greet_grpc.pb  &  proto }
+    "github.com/golang/protobuf/hello/hellopb"  to c:\go\src 
+
+     C:\Users\jvt\go\src\github.com\golang\protobuf
+
+12.  now open VSC & run ur server code
+     edit this one line "hellopb"
+
+13.  now open VSC & run ur client code 
+     follow below link to create a service 
+     
+14.  go get github.com/opentracing-contrib/go-grpc
+
+Refernce :
+https://dev.to/karankumarshreds/protocol-buffers-and-grpc-in-go-3eil
+https://docs.dennisokeeffe.com/grpc/grpc-with-go
+
