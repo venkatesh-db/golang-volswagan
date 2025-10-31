@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  telemetry-service:
+    build: ./telemetry-service
+    ports:
+      - "8080:8080"
+
+  analytics-service:
+    build: ./analytics-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - telemetry-service
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - analytics-service
+
+  dashboard-service:
+    build: ./dashboard-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - analytics-service
